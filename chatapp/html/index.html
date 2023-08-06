@@ -1,8 +1,7 @@
+<!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="http://localhost:5276/WeatherForecast/mainCSS">
-    <style>
-    </style>
 </head>
+    <link rel="stylesheet" href="http://localhost:5276/WeatherForecast/mainCSS">
 <html>
     <body>
         <header>
@@ -11,17 +10,17 @@
         </header>
         <div class="wrap">
             <div class="side">
-                <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
+                <ul id="l1">
                 </ul>
             </div>
-            <div class = "main">
+            <div class = "main" >
 
-                <div class="displaymessage">
-                    this is where the body of the text is
-                </div>
+                <ul id="main">
+                    <li class="displaymessage">
+                        this is where the body of the text is
+                    </li>
+                </ul>
+
                 <input type="" name="" value="" class="typebox">
                     <button class="sendbutton">
                         send
@@ -31,3 +30,48 @@
         </div>
     </body>
 </html>
+
+<script type="text/javascript">
+    function side_append (name,message){
+        // Create the div to store name and last message
+        var iDiv = document.createElement('li');
+        iDiv.className = 'contact';
+
+        // Contact Name/ID
+        var innerDiv = document.createElement('div');
+        innerDiv.className = 'Name';
+        innerDiv.innerText = name;
+        // Last message
+        var innerDiv2 = document.createElement('div');
+        innerDiv2.className = 'LastMessage';
+        innerDiv2.innerText = message;
+        // The variable iDiv is still good... Just append to it.
+        iDiv.appendChild(innerDiv);
+        iDiv.appendChild(innerDiv2);
+        // Then append the whole thing onto the body
+        document.getElementById('l1').appendChild(iDiv);
+    }
+    function main_append(sender,message){
+        // Create the div to store name and last message
+        var iDiv = document.createElement('li');
+        let tmp = 'displaymessage ' + (sender?"sent":"recived");
+        iDiv.className = tmp;
+        //sender is a bool and true if the user sent message
+        //false if the contact sent the message
+        // Contact Name/ID
+        var innerDiv = document.createElement('div');
+        // Last message
+        var innerDiv2 = document.createElement('div');
+        innerDiv2.className = 'LastMessage';
+        innerDiv2.innerText = message;
+        // The variable iDiv is still good... Just append to it.
+        iDiv.appendChild(innerDiv);
+        iDiv.appendChild(innerDiv2);
+        // Then append the whole thing onto the body
+        document.getElementById('main').appendChild(iDiv);
+    }
+    for (let i =0;i<10;i++){
+        side_append("sample","last text");
+        main_append(i%2==0,"hi");
+    }
+</script>

@@ -1,3 +1,7 @@
+html{
+    height: 100%;
+    width: 100%;
+}
 body{
     background-color: grey;
     display: flex;
@@ -12,6 +16,23 @@ header{
     width:100%;
     flex: 0 0 100%;
     background-color: blue;
+}
+
+ul,li {
+    list-style-type: none;
+    overflow: scroll;
+    width:100%;
+    bottom:0px;
+}
+
+li{
+}
+
+.sent{
+    float: right;
+}
+.recived{
+    float: left;
 }
 
 .wrap{
@@ -40,7 +61,9 @@ header{
     color: white;
     border-radius: 35px 70px;
     height: 80px;
-    width: 60%;
+    width: 80%;
+    text-align:center;
+    position: relative;
 }
 
 .typebox{

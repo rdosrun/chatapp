@@ -28,7 +28,7 @@ public class WeatherForecastController : ControllerBase
             StreamReader sr = new StreamReader(path);
             tmp = sr.ReadLine();
             while(tmp!=null){
-                results = results+tmp;
+                results = results+tmp+"\n";
                 tmp = sr.ReadLine();
             }
             sr.Close();
