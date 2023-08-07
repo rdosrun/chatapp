@@ -166,4 +166,39 @@ public class WeatherForecastController : ControllerBase
         message = JsonConvert.SerializeObject(table1, Formatting.Indented);
         return Ok(message);
     }
+    [Route("send")]
+    [HttpGet]
+    public async Task<IActionResult> sendMessage(string ID1,string ID2, string message){
+        string results ="";
+        string command = "insert into Messages (sender,reciver,message) values ("+ID1+","+ID2+",'"+message+"');";
+        string cs = "server=127.0.0.1;userid=root;password=password;database=CHATAPP";
+        int id =-1;
+        MySqlDataReader reader = null;
+        DataTable table1 = new DataTable("values");
+        table1.Columns.Add("type");
+        table1.Columns.Add("value");
+        using (MySqlConnection connection = new MySqlConnection(cs)){
+            try
+            {
+                connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(command, connection))
+                {
+                    using (reader = cmd.ExecuteReader()){
+                        while( reader.Read()){
+                            table1.Rows.Add("int",reader.GetInt32(0));
+                            table1.Rows.Add("int",reader.GetInt32(1));
+                            table1.Rows.Add("string",reader.GetString(2));
+                        }
+                    }
+                }
+            }
+            catch(Exception e){
+
+            }
+        }
+        results = JsonConvert.SerializeObject(table1, Formatting.Indented);
+        return Ok(results);
+    }
+
+
 }

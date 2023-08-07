@@ -20,8 +20,8 @@
                     </li>
                 </ul>
 
-                <input type="" name="" value="" class="typebox">
-                    <button class="sendbutton">
+                <input type="" name="" value="" class="typebox" id="typebox">
+                    <button id="sendbutton" class="sendbutton">
                         send
                     </button>
                 </input>
@@ -79,6 +79,12 @@
                 }
             })
             .catch((error) =>console.log("error"));
-
     }
+
+    document.getElementById('sendbutton').addEventListener('click',function(){
+        const message= document.getElementById('typebox').value;
+        fetch("http://localhost:5276/WeatherForecast/send?ID1=0&ID2=1&message="+encodeURIComponent(message));
+        main_append(0,message);
+    });
+
 </script>
