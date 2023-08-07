@@ -5,8 +5,7 @@
 <html>
     <body>
         <header>
-            <a href="http://localhost:5276/weatherForecast/landingPage">go to landing page</a>
-            this is the main app page
+            <a class="logout" href="http://localhost:5276/weatherForecast/landingPage">Log Out</a>
         </header>
         <div class="wrap">
             <div class="side">
@@ -54,7 +53,7 @@
     function main_append(sender,message){
         // Create the div to store name and last message
         var iDiv = document.createElement('li');
-        let tmp = 'displaymessage ' + (sender?"sent":"recived");
+        let tmp = 'displaymessage ' + (sender?"recived":"sent");
         iDiv.className = tmp;
         //sender is a bool and true if the user sent message
         //false if the contact sent the message
@@ -70,8 +69,16 @@
         // Then append the whole thing onto the body
         document.getElementById('main').appendChild(iDiv);
     }
-    for (let i =0;i<10;i++){
+    for (let i =0;i<1;i++){
         side_append("sample","last text");
-        main_append(i%2==0,"hi");
+        fetch('http://localhost:5276/WeatherForecast/Messages?ID1=0&ID2=1')
+            .then(response => response.json())
+            .then(data=>{
+                for(let j=0;j<data.length;j=j+3){
+                    main_append(parseInt(data[j].value),data[j+2].value);
+                }
+            })
+            .catch((error) =>console.log("error"));
+
     }
 </script>

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc;  // for Controller, [Route], [HttpPost], [FromBody], JsonResult and Json
-using System.IO;   // for MemoryStream
-using System.Net.Http; // for HttpResponseMessage
-using System.Net;  // for HttpStatusCode
-using System.Net.Http.Headers;  // for MediaTypeHeaderValue
+using Newtonsoft.Json;
+using System.IO;
+using System.Net.Http;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Data;
 using MySqlConnector;
 namespace chatapp.Controllers;
@@ -26,7 +26,6 @@ public class WeatherForecastController : ControllerBase
     }
 
     //sql connection
-    // set these values correctly for your database server
     private DataTable Run_SQL(string command){
         string cs = "server=127.0.0.1;userid=root;password=password;database=CHATAPP";
         int id =-1;
@@ -60,7 +59,6 @@ public class WeatherForecastController : ControllerBase
         return table1;
     }
     }
-    // create a DB command and set the SQL statement with parameters
 
 
     private String getfile(string path){
@@ -135,5 +133,37 @@ public class WeatherForecastController : ControllerBase
         }
         return Content(id,"text/html");
     }
+    [Route("Messages")]
+    [HttpGet]
+    public async Task<IActionResult> Messages(string ID1,string ID2){
+        string message ="";
+        string command = "Select * from Messages where ((sender="+ID1+" or sender="+ID2+") and (reciver="+ID1+" or reciver="+ID2+"))";
+        string cs = "server=127.0.0.1;userid=root;password=password;database=CHATAPP";
+        int id =-1;
+        MySqlDataReader reader = null;
+        DataTable table1 = new DataTable("values");
+        table1.Columns.Add("type");
+        table1.Columns.Add("value");
+        using (MySqlConnection connection = new MySqlConnection(cs)){
+            try
+            {
+                connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(command, connection))
+                {
+                    using (reader = cmd.ExecuteReader()){
+                        while( reader.Read()){
+                            table1.Rows.Add("int",reader.GetInt32(0));
+                            table1.Rows.Add("int",reader.GetInt32(1));
+                            table1.Rows.Add("string",reader.GetString(2));
+                        }
+                    }
+                }
+            }
+            catch(Exception e){
 
+            }
+        }
+        message = JsonConvert.SerializeObject(table1, Formatting.Indented);
+        return Ok(message);
+    }
 }
