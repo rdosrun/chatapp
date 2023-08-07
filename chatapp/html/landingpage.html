@@ -1,19 +1,38 @@
 <head>
     <link rel="stylesheet" href="http://localhost:5276/WeatherForecast/landingPage.css">
     <style>
+        .text{
+            color: black;
+        }
     </style>
 </head>
 <html>
     <body>
         <div class = "test">
-            this is my test
+            <div style="text-align: center;">
+                Chat App
+            </div>
+            <div class ="text">
+                Username
+                <input type="" id="username" value="">
+            </div>
+            <div class = "text">
+                Password
+                <input type="" id="password" value="">
+            </div>
+            <button type="" id="login">Log-in</button>
         </div>
-        <div class="text-uppercase">
-            Version 1.0
-            this is the landing page
-        </div>
-        <div>
+        <!--div>
              <a href="http://localhost:5276/weatherForecast/main">go to main page</a>
-        </div>
+        </div-->
     </body>
 </html>
+<script>
+    document.getElementById('login').addEventListener('click',function(){
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        console.log("changed"+password);
+        window.location.href = "http://localhost:5276/WeatherForecast/Login?ID="+username+"&password="+password;
+
+    });
+</script>

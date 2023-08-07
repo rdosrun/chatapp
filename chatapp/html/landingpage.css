@@ -3,5 +3,24 @@ body{
 }
 .test{
     color: red;
+    border: 5px solid #000;
+    height: 300px;
+    width: 500px;
+    border-radius: 30px;
+    margin-left: calc(50% - 250px);
+    margin-top: 5%;
 }
-
+input{
+    height: 50px;
+    width: 400px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+}
+button{
+    border-radius: 15px;
+    width: 80px;
+    height: 40px;
+    margin-left: 410px;
+}
